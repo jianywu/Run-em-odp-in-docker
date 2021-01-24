@@ -1,13 +1,14 @@
-## Compile em-odp and run its example application on ubuntu docker image
+# Compile em-odp and run its example application on ubuntu docker image
 
-##
+## How to use
+
 * Docker build
 
 `$ docker build -t lifa08/em-odp ./`
 
 * Docker run
 
-```bash
+```
 
 $ docker run -it --cpuset-cpus="0-1" lifa08/em-odp:latest -c 0x3 -t
 
