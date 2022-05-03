@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 RUN apt-get update
 
-ENV TZ=Europe/Helsinki
+ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get install autotools-dev
@@ -18,15 +18,15 @@ RUN adduser ubuntu
 RUN mkdir /home/ubuntu/Projects
 WORKDIR /home/ubuntu/Projects
 
-# Install odp
-RUN git clone https://github.com/OpenDataPlane/odp.git
-RUN cd odp && ./bootstrap && ./configure && make && make install
+# Install odp via github proxy
+RUN git clone https://github.91chi.fun//https://github.com/OpenDataPlane/odp.git
+RUN cd odp && ./bootstrap && mkdir build && cd build && ../configure CFLAGS='-O0 -ggdb' --enable-debug=full --enable-helper-linux && make -j && make install
 
-# install em-odb
-RUN git clone https://github.com/openeventmachine/em-odp.git
+# install em-odp via github proxy
+RUN git clone https://github.91chi.fun//https://github.com/openeventmachine/em-odp.git
 RUN cd em-odp && ./bootstrap
 RUN cd em-odp && mkdir build
-RUN cd em-odp/build && ../configure && make && make install
+RUN cd em-odp/build && ../configure CFLAGS='-O0 -ggdb' --enable-check-level=3 --with-odp-lib=libodp-linux && make -j && make install
 
 # Run the example program
 WORKDIR /home/ubuntu/Projects/em-odp/build/programs/example/hello
