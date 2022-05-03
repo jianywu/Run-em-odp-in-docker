@@ -23,7 +23,7 @@ RUN git clone https://github.91chi.fun//https://github.com/OpenDataPlane/odp.git
 RUN cd odp && ./bootstrap && mkdir build && cd build && ../configure CFLAGS='-O0 -ggdb' --enable-debug=full --enable-helper-linux && make -j && make install
 
 # install em-odp via github proxy
-RUN git clone https://github.91chi.fun//https://github.com/openeventmachine/em-odp.git
+RUN git clone https://github.91chi.fun//https://github.com/jianywu/em-odp.git
 RUN cd em-odp && ./bootstrap
 RUN cd em-odp && mkdir build
 RUN cd em-odp/build && ../configure CFLAGS='-O0 -ggdb' --enable-check-level=3 --with-odp-lib=libodp-linux && make -j && make install

@@ -4,20 +4,20 @@
 
 * Docker build
 
-`$ docker build -t lifa08/em-odp ./`
+`$ docker build -t jianywu/em-odp ./`
 
 * Docker run
 
 ```
 
-$ docker run -it --cpuset-cpus="0-1" --shm-size 512m lifa08/em-odp:latest -c 0x3 -t
+$ docker run -it --cpuset-cpus="0-1" --shm-size 512m jianywu/em-odp:latest -c 0x3 -t
 
 ```
 
 _Note_: we need to increase the size of share memmory, otherwise, following error would be introduced.
 
 ```
-$ docker run -it --cpuset-cpus="0-1" lifa08/em-odp:latest -c 0x3 -t
+$ docker run -it --cpuset-cpus="0-1" jianywu/em-odp:latest -c 0x3 -t
 
 Coremask:   0x3
 Core Count: 2
