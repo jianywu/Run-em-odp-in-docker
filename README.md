@@ -4,15 +4,18 @@
 
 * Docker build
 
-`$ docker build -t jianywu/em-odp ./`
+`$ docker build -t jianywu/em-odp:latest ./`
 
 * Docker run
 
 ```
 
 $ docker run -it --cpuset-cpus="0-1" --shm-size 512m jianywu/em-odp:latest -c 0x3 -t
-Or run in background
-$ docker run -it -d --cpuset-cpus="0-1" -p 55555:55555 --shm-size 512m jianywu/em-odp:v0.3 -c 0x3 -t
+
+$ docker exec -it $container_id sh
+
+# use em_cli
+$ telnet 0 55555
 
 ```
 
@@ -33,3 +36,4 @@ odp_ishm.c:1294:reserve_single_va():Reserving single VA memory failed.
 odp_ishm.c:1754:_odp_ishm_init_global():unable to reserve single VA memory
 .odp_init.c:349:odp_init_global():ODP ishm init failed.
 Appl Error: cm_setup.c:436, init_odp() - ODP global init failed:-1
+```
