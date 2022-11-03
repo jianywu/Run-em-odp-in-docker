@@ -14,6 +14,8 @@ RUN apt-get -y install git
 RUN apt-get -y install telnet
 RUN apt-get -y install iproute2
 RUN apt-get -y install vim
+# used by em_cli
+RUN apt-get -y install libcli-dev
 
 RUN adduser ubuntu
 
@@ -21,15 +23,16 @@ RUN adduser ubuntu
 RUN mkdir /home/ubuntu/Projects
 WORKDIR /home/ubuntu/Projects
 
-# Install odp via github
+# Install odp via github proxy
 RUN git clone https://github.91chi.fun//https://github.com/OpenDataPlane/odp.git
 RUN cd odp && ./bootstrap && mkdir build && cd build && ../configure CFLAGS='-O0 -ggdb' --enable-debug=full --enable-helper-linux && make -j && make install
 
-# install em-odp via github
+# install em-odp via github proxy
 RUN git clone https://github.91chi.fun//https://github.com/jianywu/em-odp.git
 RUN cd em-odp && ./bootstrap
 RUN cd em-odp && mkdir build
-RUN cd em-odp && sed -i "s/enable = false/enable = true/" ./config/em-odp.conf
+# used by em_cli
+RUN cd em-odp && sed -i '/^cli:\s{/,/^\t#\sIP\saddress/s/\tenable\s*=.*/\tenable = true/' ./config/em-odp.conf
 RUN cd em-odp && cat ./config/em-odp.conf
 RUN cd em-odp/build && ../configure CFLAGS='-O0 -ggdb' --enable-check-level=3 --with-odp-lib=libodp-linux && make -j && make install
 
